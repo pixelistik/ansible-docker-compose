@@ -1,0 +1,9 @@
+---
+  - hosts: local
+    tasks:
+    - name: Build and start containers
+      shell: docker-compose build && docker-compose up -d
+      register: docker_compose_output
+      changed_when: "'Recreating' in docker_compose_output.stderr or 'Starting' in docker_compose_output.stderr"
+
+    #- debug: var=docker_compose_output.stderr
